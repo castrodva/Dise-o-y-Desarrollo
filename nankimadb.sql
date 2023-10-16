@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2023 a las 04:09:18
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Aug 08, 2023 at 09:28 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,40 +18,53 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `nankimadb`
+-- Database: `nankimadb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
+-- Table structure for table `catalogo`
 --
 
-CREATE TABLE `categorias` (
+CREATE TABLE `nankimadb`.`catalogo` (
+  `id` int(11) NOT NULL,
+  `servicio` varchar(45) NOT NULL,
+  `horas` int(11) NOT NULL,
+  `usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categorias`
+--
+
+CREATE TABLE `nankimadb`.`categorias` (
   `id` int(11) NOT NULL,
   `categoria` text NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `categorias`
+-- Dumping data for table `categorias`
 --
 
-INSERT INTO `categorias` (`id`, `categoria`, `fecha`) VALUES
-(1, 'Equipos Electromecánicos', '2017-12-21 20:53:29'),
-(2, 'Taladros', '2017-12-21 20:53:29'),
-(3, 'Andamios', '2017-12-21 20:53:29'),
-(4, 'Generadores de energía', '2017-12-21 20:53:29'),
-(5, 'Equipos para construcción', '2017-12-21 20:53:29'),
-(6, 'Martillos mecánicos', '2017-12-21 23:06:40');
+INSERT INTO `nankimadb`.`categorias` (`id`, `categoria`, `fecha`) VALUES
+(1, 'remodelaciones', '2023-07-19 00:08:02'),
+(2, 'mantenimiento', '2023-07-19 00:08:02'),
+(3, 'construcciones', '2023-07-19 00:08:02'),
+(4, 'Edificios residenciales', '2023-07-19 00:08:02'),
+(5, 'comerciales', '2023-07-19 00:08:02'),
+(6, 'industriales', '2023-07-19 00:08:02');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `clientes`
 --
 
-CREATE TABLE `clientes` (
+CREATE TABLE `nankimadb`.`clientes` (
   `id` int(11) NOT NULL,
   `nombre` text NOT NULL,
   `documento` int(11) NOT NULL,
@@ -65,10 +78,10 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `clientes`
+-- Dumping data for table `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nombre`, `documento`, `email`, `telefono`, `direccion`, `fecha_nacimiento`, `compras`, `ultima_compra`, `fecha`) VALUES
+INSERT INTO `nankimadb`.`clientes` (`id`, `nombre`, `documento`, `email`, `telefono`, `direccion`, `fecha_nacimiento`, `compras`, `ultima_compra`, `fecha`) VALUES
 (3, 'Juan Villegas', 2147483647, 'juan@hotmail.com', '(300) 341-2345', 'Calle 23 # 45 - 56', '1980-11-02', 7, '2018-02-06 17:47:02', '2018-02-06 22:47:02'),
 (4, 'Pedro Pérez', 2147483647, 'pedro@gmail.com', '(399) 876-5432', 'Calle 34 N33 -56', '1970-08-07', 7, '2017-12-26 17:27:42', '2017-12-26 22:27:42'),
 (5, 'Miguel Murillo', 325235235, 'miguel@hotmail.com', '(254) 545-3446', 'calle 34 # 34 - 23', '1976-03-04', 32, '2017-12-26 17:27:13', '2017-12-27 04:38:13'),
@@ -83,10 +96,108 @@ INSERT INTO `clientes` (`id`, `nombre`, `documento`, `email`, `telefono`, `direc
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proyectos`
+-- Table structure for table `elementos`
 --
 
-CREATE TABLE `proyectos` (
+CREATE TABLE `nankimadb`.`elementos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `precio` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `elementos`
+--
+
+INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES
+(1, 'baño', 20000),
+(2, 'cuarto', 30000),
+(3, 'cochera', 40000),
+(4, 'planta', 50000),
+(5, 'metros cuadrados', 60000),
+(6, 'Lavanderia', 70000),
+(7, 'Griferia', 80000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `empleados`
+--
+
+CREATE TABLE `nankimadb`.`empleados` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `empleados`
+--
+
+INSERT INTO `nankimadb`.`empleados` (`id`, `descripcion`) VALUES
+(1, 'constructor'),
+(2, 'Electricista');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hito`
+--
+
+CREATE TABLE `nankimadb`.`hito` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hito`
+--
+
+INSERT INTO `nankimadb`.`hito` (`id`, `descripcion`) VALUES
+(1, 'planificacion'),
+(2, 'construccion');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `maquinaria`
+--
+
+CREATE TABLE `nankimadb`.`maquinaria` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `maquinaria`
+--
+
+INSERT INTO `nankimadb`.`maquinaria` (`id`, `descripcion`) VALUES
+(1, 'tractor');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `presupuesto_construccion`
+--
+
+CREATE TABLE `nankimadb`.`presupuesto_construccion` (
+  `id` int(11) NOT NULL,
+  `cantidad_material` int(11) NOT NULL,
+  `mano_de_obra_hora` int(11) NOT NULL,
+  `tipo_mano_de_obra` int(11) NOT NULL,
+  `maquinaria` int(11) NOT NULL,
+  `permisos` varchar(100) DEFAULT NULL,
+  `seguros` varchar(100) DEFAULT NULL,
+  `presupuesto_contingencia` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proyectos`
+--
+
+CREATE TABLE `nankimadb`.`proyectos` (
   `id` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL,
   `codigo` text NOT NULL,
@@ -100,10 +211,10 @@ CREATE TABLE `proyectos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `proyectos`
+-- Dumping data for table `proyectos`
 --
 
-INSERT INTO `proyectos` (`id`, `id_categoria`, `codigo`, `descripcion`, `imagen`, `stock`, `precio_compra`, `precio_venta`, `ventas`, `fecha`) VALUES
+INSERT INTO `nankimadb`.`proyectos` (`id`, `id_categoria`, `codigo`, `descripcion`, `imagen`, `stock`, `precio_compra`, `precio_venta`, `ventas`, `fecha`) VALUES
 (1, 1, '101', 'Aspiradora Industrial ', 'vistas/img/proyectos/101/105.png', 13, 1000, 1200, 2, '2023-06-28 02:06:25'),
 (2, 1, '102', 'Plato Flotante para Allanadora', 'vistas/img/proyectos/102/940.jpg', 6, 4500, 6300, 3, '2023-06-28 02:06:35'),
 (3, 1, '103', 'Compresor de Aire para pintura', 'vistas/img/proyectos/103/763.jpg', 8, 3000, 4200, 12, '2023-06-28 02:06:42'),
@@ -168,10 +279,65 @@ INSERT INTO `proyectos` (`id`, `id_categoria`, `codigo`, `descripcion`, `imagen`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `proyecto_gerente`
 --
 
-CREATE TABLE `usuarios` (
+CREATE TABLE `nankimadb`.`proyecto_gerente` (
+  `id` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `presupuesto` float NOT NULL,
+  `plazo` int(11) NOT NULL,
+  `id_hito` int(11) NOT NULL,
+  `horas` int(11) NOT NULL,
+  `numero` text NOT NULL,
+  `ubicacion` text NOT NULL,
+  `cedula` varchar(45) NOT NULL,
+  `empleado` int(11) NOT NULL,
+  `tareas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `proyecto_gerente`
+--
+
+INSERT INTO `nankimadb`.`proyecto_gerente` (`id`, `id_categoria`, `id_cliente`, `presupuesto`, `plazo`, `id_hito`, `horas`, `numero`, `ubicacion`, `cedula`, `empleado`, `tareas`) VALUES
+(1, 3, 3, 100000, 6, 1, 8, '(300) 341-2345', 'Calle 23 # 45 - 56', '207770297', 1, 1),
+(2, 3, 4, 100000, 7, 2, 8, '(300) 341-2345', 'Calle 23 # 45 - 56', '207770297', 1, 1),
+(3, 1, 3, 3000, 5, 1, 7, '86690776', 'Alajueela 4A', '23423423', 1, 1),
+(5, 5, 3, 10000, 7, 1, 8, '20005566', 'San Jose', '1111111', 1, 1),
+(6, 5, 3, 10000, 7, 1, 8, '20005566', 'San Jose', '1111111', 1, 1),
+(7, 1, 12, 2000, 5, 1, 4, '(235) 346-3464', 'Desampa', '436346346', 2, 1),
+(8, 1, 12, 2000, 5, 1, 4, '(235) 346-3464', 'Desampa', '436346346', 2, 1),
+(9, 5, 6, 11, 15, 1, 12, '(344) 345-6678', 'Desampara2', '34565432', 2, 2),
+(10, 5, 6, 11, 15, 1, 12, '(344) 345-6678', 'Desampara2', '34565432', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tareas`
+--
+
+CREATE TABLE `nankimadb`.`tareas` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tareas`
+--
+
+INSERT INTO `nankimadb`.`tareas` (`id`, `descripcion`) VALUES
+(1, 'Construir'),
+(2, 'Diseñar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuarios`
+--
+
+CREATE TABLE `nankimadb`.`usuarios` (
   `id` int(11) NOT NULL,
   `nombre` text NOT NULL,
   `usuario` text NOT NULL,
@@ -184,24 +350,22 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `password`, `perfil`, `foto`, `estado`, `ultimo_login`, `fecha`) VALUES
-(1, 'Administrador', 'admin@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Administrador', 'vistas/img/usuarios/admin/191.jpg', 1, '2023-06-27 20:53:54', '2023-06-28 01:53:54'),
-(57, 'ame', 'ame@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Cliente', 'vistas/img/usuarios/juan/461.jpg', 1, '2023-06-27 20:02:27', '2023-06-28 01:02:27'),
+INSERT INTO `nankimadb`.`usuarios` (`id`, `nombre`, `usuario`, `password`, `perfil`, `foto`, `estado`, `ultimo_login`, `fecha`) VALUES
+(1, 'Administrador', 'admin@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Administrador', 'vistas/img/usuarios/admin/191.jpg', 1, '2023-08-08 14:10:49', '2023-08-08 19:10:49'),
+(57, 'ame', 'ame@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Cliente', 'vistas/img/usuarios/juan/461.jpg', 1, '2023-08-08 14:06:21', '2023-08-08 19:06:21'),
 (58, 'andres', 'andres@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Especial', 'vistas/img/usuarios/julio/100.png', 1, '2023-06-27 20:02:56', '2023-06-28 01:02:56'),
-(59, 'daniela', 'daniela@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Vendedor', 'vistas/img/usuarios/ana/260.png', 1, '2017-12-26 19:21:40', '2023-06-27 20:06:38'),
-(60, 'wolfan', 'wolfan@gmail.com', '$2a$07$asxx54ahjppf45sd87a5au.tG/wfTytcifYB38fIpnuOIgptEgwhS', 'Administrador', 'vistas/img/usuarios/default/user.png', 1, '2023-06-27 18:58:15', '2023-06-27 23:58:15'),
-(61, 'juan', 'juan@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auwRi.z6UsW7kVIpm0CUEuCpmsvT2sG6O', 'Administrador', 'vistas/img/usuarios/default/user.png', 0, '0000-00-00 00:00:00', '2023-06-28 00:58:26');
+(59, 'daniela', 'daniela@gmail.com', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 'Gerente', 'vistas/img/usuarios/ana/260.png', 1, '2023-08-08 14:11:07', '2023-08-08 19:11:07');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas`
+-- Table structure for table `ventas`
 --
 
-CREATE TABLE `ventas` (
+CREATE TABLE `nankimadb`.`ventas` (
   `id` int(11) NOT NULL,
   `codigo` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
@@ -215,10 +379,10 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `ventas`
+-- Dumping data for table `ventas`
 --
 
-INSERT INTO `ventas` (`id`, `codigo`, `id_cliente`, `id_vendedor`, `productos`, `impuesto`, `neto`, `total`, `metodo_pago`, `fecha`) VALUES
+INSERT INTO `nankimadb`.`ventas` (`id`, `codigo`, `id_cliente`, `id_vendedor`, `productos`, `impuesto`, `neto`, `total`, `metodo_pago`, `fecha`) VALUES
 (17, 10001, 3, 1, '[{\"id\":\"1\",\"descripcion\":\"Aspiradora Industrial \",\"cantidad\":\"2\",\"stock\":\"13\",\"precio\":\"1200\",\"total\":\"2400\"},{\"id\":\"2\",\"descripcion\":\"Plato Flotante para Allanadora\",\"cantidad\":\"2\",\"stock\":\"7\",\"precio\":\"6300\",\"total\":\"12600\"},{\"id\":\"3\",\"descripcion\":\"Compresor de Aire para pintura\",\"cantidad\":\"1\",\"stock\":\"19\",\"precio\":\"4200\",\"total\":\"4200\"}]', 3648, 19200, 22848, 'Efectivo', '2018-02-02 01:11:04'),
 (18, 10002, 4, 59, '[{\"id\":\"5\",\"descripcion\":\"Cortadora de Piso sin Disco \",\"cantidad\":\"2\",\"stock\":\"18\",\"precio\":\"2156\",\"total\":\"4312\"},{\"id\":\"4\",\"descripcion\":\"Cortadora de Adobe sin Disco \",\"cantidad\":\"1\",\"stock\":\"19\",\"precio\":\"5600\",\"total\":\"5600\"},{\"id\":\"6\",\"descripcion\":\"Disco Punta Diamante \",\"cantidad\":\"1\",\"stock\":\"19\",\"precio\":\"1540\",\"total\":\"1540\"},{\"id\":\"7\",\"descripcion\":\"Extractor de Aire \",\"cantidad\":\"1\",\"stock\":\"19\",\"precio\":\"2156\",\"total\":\"2156\"}]', 2585.52, 13608, 16193.5, 'TC-34346346346', '2018-02-02 14:57:20'),
 (19, 10003, 5, 59, '[{\"id\":\"8\",\"descripcion\":\"Guadañadora \",\"cantidad\":\"1\",\"stock\":\"19\",\"precio\":\"2156\",\"total\":\"2156\"},{\"id\":\"9\",\"descripcion\":\"Hidrolavadora Eléctrica \",\"cantidad\":\"1\",\"stock\":\"19\",\"precio\":\"3640\",\"total\":\"3640\"},{\"id\":\"7\",\"descripcion\":\"Extractor de Aire \",\"cantidad\":\"1\",\"stock\":\"18\",\"precio\":\"2156\",\"total\":\"2156\"}]', 1510.88, 7952, 9462.88, 'Efectivo', '2018-01-18 14:57:40'),
@@ -241,101 +405,183 @@ INSERT INTO `ventas` (`id`, `codigo`, `id_cliente`, `id_vendedor`, `productos`, 
 (36, 10020, 4, 57, '[{\"id\":\"55\",\"descripcion\":\"Cilindro muestra de concreto\",\"cantidad\":\"1\",\"stock\":\"16\",\"precio\":\"560\",\"total\":\"560\"},{\"id\":\"54\",\"descripcion\":\"Chapeta\",\"cantidad\":\"1\",\"stock\":\"16\",\"precio\":\"924\",\"total\":\"924\"}]', 281.96, 1484, 1765.96, 'TC-46346346346', '2017-12-26 22:27:42'),
 (37, 10021, 3, 1, '[{\"id\":\"60\",\"descripcion\":\"Cortadora de Baldosin\",\"cantidad\":\"1\",\"stock\":\"13\",\"precio\":\"1302\",\"total\":\"1302\"},{\"id\":\"59\",\"descripcion\":\"Cono slump\",\"cantidad\":\"1\",\"stock\":\"15\",\"precio\":\"196\",\"total\":\"196\"}]', 149.8, 1498, 1647.8, 'Efectivo', '2018-02-06 22:47:02');
 
-
-CREATE TABLE `nankimadb`.`elementos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `precio` FLOAT NOT NULL,
-  PRIMARY KEY (`id`));
-  
-  INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('1', 'baño', '20000');
-INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('2', 'cuarto', '30000');
-INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('3', 'cochera', '40000');
-INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('4', 'planta', '50000');
-INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('5', 'metros cuadrados', '60000');
-INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('6', 'Lavanderia', '70000');
-INSERT INTO `nankimadb`.`elementos` (`id`, `nombre`, `precio`) VALUES ('7', 'Griferia', '80000');
-
-
-CREATE TABLE `nankimadb`.`catalogo` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `servicio` VARCHAR(45) NOT NULL,
-  `horas` INT NOT NULL,
-  `usuario` INT(11) NOT NULL,
-  PRIMARY KEY (`id`));
-
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `categorias`
+-- Indexes for table `catalogo`
 --
-ALTER TABLE `categorias`
+ALTER TABLE `nankimadb`.`catalogo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `clientes`
+-- Indexes for table `categorias`
 --
-ALTER TABLE `clientes`
+ALTER TABLE `nankimadb`.`categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `proyectos`
+-- Indexes for table `clientes`
 --
-ALTER TABLE `proyectos`
+ALTER TABLE `nankimadb`.`clientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `elementos`
 --
-ALTER TABLE `usuarios`
+ALTER TABLE `nankimadb`.`elementos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `ventas`
+-- Indexes for table `empleados`
 --
-ALTER TABLE `ventas`
+ALTER TABLE `nankimadb`.`empleados`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indexes for table `hito`
+--
+ALTER TABLE `nankimadb`.`hito`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `maquinaria`
+--
+ALTER TABLE `nankimadb`. `maquinaria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `presupuesto_construccion`
+--
+ALTER TABLE `nankimadb`.`presupuesto_construccion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_mano_de_obra` (`tipo_mano_de_obra`),
+  ADD KEY `maquinaria` (`maquinaria`);
+
+--
+-- Indexes for table `proyectos`
+--
+ALTER TABLE `nankimadb`.`proyectos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `proyecto_gerente`
+--
+ALTER TABLE `nankimadb`.`proyecto_gerente`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_categoria` (`id_categoria`),
+  ADD KEY `id_hito` (`id_hito`);
+
+--
+-- Indexes for table `tareas`
+--
+ALTER TABLE `nankimadb`.`tareas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `usuarios`
+--
+ALTER TABLE `nankimadb`.`usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ventas`
+--
+ALTER TABLE `nankimadb`.`ventas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `categorias`
+-- AUTO_INCREMENT for table `catalogo`
 --
-ALTER TABLE `categorias`
+ALTER TABLE `nankimadb`.`catalogo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `categorias`
+--
+ALTER TABLE `nankimadb`.`categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `clientes`
+-- AUTO_INCREMENT for table `clientes`
 --
-ALTER TABLE `clientes`
+ALTER TABLE `nankimadb`.`clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT de la tabla `proyectos`
+-- AUTO_INCREMENT for table `elementos`
 --
-ALTER TABLE `proyectos`
+ALTER TABLE `nankimadb`.`elementos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `hito`
+--
+ALTER TABLE `nankimadb`.`hito`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `maquinaria`
+--
+ALTER TABLE `nankimadb`.`maquinaria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `presupuesto_construccion`
+--
+ALTER TABLE `nankimadb`.`presupuesto_construccion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `proyectos`
+--
+ALTER TABLE `nankimadb`.`proyectos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `proyecto_gerente`
 --
-ALTER TABLE `usuarios`
+ALTER TABLE `nankimadb`.`proyecto_gerente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `nankimadb`.`usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
--- AUTO_INCREMENT de la tabla `ventas`
+-- AUTO_INCREMENT for table `ventas`
 --
-ALTER TABLE `ventas`
+ALTER TABLE `nankimadb`.`ventas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `presupuesto_construccion`
+--
+ALTER TABLE `nankimadb`.`presupuesto_construccion`
+  ADD CONSTRAINT `presupuesto_construccion_ibfk_1` FOREIGN KEY (`tipo_mano_de_obra`) REFERENCES `empleados` (`id`),
+  ADD CONSTRAINT `presupuesto_construccion_ibfk_2` FOREIGN KEY (`maquinaria`) REFERENCES `maquinaria` (`id`);
+
+--
+-- Constraints for table `proyecto_gerente`
+--
+ALTER TABLE `nankimadb`.`proyecto_gerente`
+  ADD CONSTRAINT `proyecto_gerente_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `proyecto_gerente_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`),
+  ADD CONSTRAINT `proyecto_gerente_ibfk_3` FOREIGN KEY (`id_hito`) REFERENCES `hito` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
