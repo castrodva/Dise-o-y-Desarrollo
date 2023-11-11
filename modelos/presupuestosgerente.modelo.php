@@ -2,13 +2,13 @@
 
 require_once "conexion.php";
 
-class ModeloProyectosGerente{
+class ModeloPresupuestoGerente{
 
 	/*=============================================
 	MOSTRAR Proyectos
 	=============================================*/
 
-	static public function mdlMostrarProyectosGererente($tabla,$item,$valor){
+	static public function mdlMostrarPresupuestoGererente($tabla,$item,$valor){
 
 		if($item != null){
 
@@ -40,11 +40,11 @@ class ModeloProyectosGerente{
 	BORRAR PRODUCTO
 	=============================================*/
 
-	static public function mdlEliminarProyecto($tabla, $datos){
+	static public function mdlEliminarPresupuesto($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE codigo = :codigo");
 
-		$stmt -> bindParam(":id", $datos, PDO::PARAM_INT);
+		$stmt -> bindParam(":codigo", $datos, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 
@@ -63,32 +63,34 @@ class ModeloProyectosGerente{
 	}
 
 
-
-	/*=============================================
-	EDITAR CATEGORIA
+		/*=============================================
+	EDITAR USUARIO
 	=============================================*/
 
-	static public function mdlEditarProyectosGerente($id,$categoria, $presupuesto,$plazo,$hito,$tarea,$empleado,$horas,$numero,$ubicacion){
+	 public function mdlEditarPresupuesto($tabla,$codigo,$presupuesto,$seguros,$materiales,$maquinaria,$permisos,$contingencia,$costoTotal){
+
+	
+		$stmt = Conexion::conectar()->prepare("UPDATE `presupuesto_gerente` SET `presupuesto`='$presupuesto',`seguros`='$seguros',`materiales`='$materiales',`maquinaria`='$maquinaria',`permisos`='$permisos',`contingencia`='$contingencia',`costoTotal`='$costoTotal' WHERE `codigo`='$codigo'");
 
 
-        $stmt = Conexion::conectar()->prepare("UPDATE `proyecto_gerente` SET `id_categoria`='$categoria',`presupuesto`='$presupuesto',`plazo`='$plazo',`id_hito`='$hito',`horas`='$horas',`numero`='$numero',`ubicacion`='$ubicacion',`empleado`='$empleado',`tareas`='$tarea' WHERE id = '$id'");
 
-
-		if($stmt->execute()){
+		if($stmt -> execute()){
 
 			return "ok";
-
+		
 		}else{
 
-			return "error";
-		
+			return "error";	
+
 		}
 
-		$stmt->close();
+		$stmt -> close();
+
 		$stmt = null;
 
 	}
 
-	
-}
+	}
+
+
 ?>
