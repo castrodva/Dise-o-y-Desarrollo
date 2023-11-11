@@ -5,7 +5,7 @@ class ControladorProyectosGerente{
 	=============================================*/
 	static public function ctrMostrarProyectosGerente($item,$valor){
 		$tabla = "proyecto_gerente";
-		$respuesta = ModeloCatalogo::mdlMostrarCatalogo($tabla, $item, $valor);
+		$respuesta = ModeloProyectosGerente::mdlMostrarProyectosGererente($tabla, $item, $valor);
 
 		return $respuesta;
 	}
@@ -47,16 +47,36 @@ class ControladorProyectosGerente{
 
                 if ($stmt->execute()) {
                     // Proyecto guardado exitosamente
-                    echo '<script>
-                            alert("El proyecto ha sido guardado exitosamente.");
-                            window.location.href = "proyectosgerente"; // Redirigir a la página principal u otra página deseada.
-                        </script>';
+                     echo '<script>
+					swal({
+						type: "success",
+						title: "¡El usuario ha sido guardado correctamente!",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					}).then(function(result){
+						if(result.value){
+						
+							window.location = "proyectosgerente";
+						}
+					});
+				
+					</script>';
                 } else {
                     // Ocurrió un error al guardar el proyecto
                     echo '<script>
-                            alert("Error al guardar el proyecto. Por favor, inténtelo nuevamente.");
-                            window.location.href = "proyectosgerente"; // Redirigir a la página principal u otra página deseada.
-                        </script>';
+					swal({
+						type: "error",
+						title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					}).then(function(result){
+						if(result.value){
+						
+							window.location = "proyectosgerente";
+						}
+					});
+				
+				</script>';
                 }
             } catch (PDOException $ex) {
                 // Manejo de excepciones en caso de error en la consulta
@@ -67,57 +87,65 @@ class ControladorProyectosGerente{
 
     public function ctrEditarProyectoGerente()
     {
-        if (isset($_POST['editarCategoria'])) {
-           $tabla = "proyecto_gerente";
+        if (isset($_POST['nuevoCategoria'])) {
+            // Obtener los datos del formulario
+            $id= $_POST["codigo"];
+            $categoria = $_POST["nuevoCategoria"];
+            $presupuesto = $_POST['nuevoPresupuesto'];
+            $plazo = $_POST['nuevoPlazo'];
+            $hito = $_POST['nuevoHito'];
+            $tarea = $_POST['nuevoTarea'];
+            $empleado = $_POST['nuevoEmpleado'];
+            $horas = $_POST['nuevoHoras'];
+            $numero = $_POST['nuevoNumero'];
+            $ubicacion = $_POST['nuevoUbicacion'];
 
-            // Guardar los datos en la tabla "proyecto_gerente"
-            $datos = array("id_categoria"=>$_POST["editarCategoria"],
-            "id_cliente"=>$_POST["editarCliente"],
-            "cedula"=>$_POST["editarCedula"],
-            "presupuesto"=>$_POST["editarPresupuesto"],
-            "plazo"=>$_POST["editarPlazo"],
-            "id_hito"=>$_POST["editarHito"],
-            "empleado"=>$_POST["editarEmpleado"],
-            "tareas"=>$_POST["editarTarea"],
-            "horas"=>$_POST["editarHoras"],
-            "numero"=>$_POST["editarNumero"],
-            "ubicacion"=>$_POST["editarUbicacion"],
+            // Se  envian los datos al Modelo"
 
-            "id"=>$_POST["idProyecto"]);
+            $respuesta = ModeloProyectosGerente::mdlEditarProyectosGerente($id,$categoria, $presupuesto,$plazo,$hito,$tarea,$empleado,$horas,$numero,$ubicacion);
 
-            $respuesta = ModeloProyectosGerente::mdlEditarProyectosGerente($tabla, $datos);
+                if($respuesta == "ok"){
 
-            if($respuesta == "ok"){
+                    echo'<script>
+
+                    swal({
+                          type: "success",
+                          title: "El Proyecto ha sido Editado correctamente",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                                    if (result.value) {
+
+                                    window.location = "proyectosgerente";
+
+                                    }
+                                })
+
+                    </script>';
+
+                }else{
+
                 echo'<script>
-                swal({
-                      type: "success",
-                      title: "El usuario ha sido editado correctamente",
-                      showConfirmButton: true,
-                      confirmButtonText: "Cerrar"
-                      }).then(function(result) {
-                                if (result.value) {
-                                window.location = "proyectosgerente";
-                                }
-                            })
+
+                    swal({
+                          type: "error",
+                          title: "¡El Proyecto no puede ir vacía o llevar caracteres especiales!",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                            if (result.value) {
+
+                            window.location = "costos";
+
+                            }
+                        })
+
                 </script>';
-            }else{
-            echo'<script>
-                swal({
-                      type: "error",
-                      title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-                      showConfirmButton: true,
-                      confirmButtonText: "Cerrar"
-                      }).then(function(result) {
-                        if (result.value) {
-                        window.location = "proyectosgerente";
-                        }
-                    })
-              </script>';
+
+            }
+            
         }
     }
-    }
-
-
     /*=============================================
 	BORRAR Proyecto
 	=============================================*/
